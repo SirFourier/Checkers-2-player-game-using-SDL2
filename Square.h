@@ -31,7 +31,7 @@ private:
 	// Define background colour
 	SDL_Color mBackgroundColour;
 
-	// Flag a checker for possible removal
+	// Flag a checker(square) for possible removal
 	Square* mCheckerFlagged;
 
 	// Keep a track of which square made the jump to flag the checker

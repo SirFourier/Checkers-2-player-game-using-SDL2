@@ -271,6 +271,11 @@ int main(int argc, char* argv[])
 	CheckerType currentPlayer = CheckerType::RED;
 	GameState gameState = GameState::OUTLINE_CURRENT_PLAYER;
 	bool render = true;
+	Winner winner = Winner::DRAW;
+
+	// Define counters to keep track of checkers removed
+	int blackCheckers = 12;
+	int redCheckers = 12;
 
 	// Game loop
 	while (!stop)
@@ -314,15 +319,30 @@ int main(int argc, char* argv[])
 								// Back track through the pointers of checkers flagged
 								while (checkerFlagged != nullptr)
 								{
-									std::cout << "Removed Checker" << std::endl;
-									// Remove checker flagged
+									// Remove checker
 									checkerFlagged->setCheckerTo(CheckerType::NONE);
+
+									// Decrement number of checkers for opposite player
+									if (currentPlayer == CheckerType::RED) --blackCheckers;
+									else --redCheckers;
 
 									// Get next checker flagged from previous square
 									checkerFlagged = previousSquare->getCheckerFlagged();
 
 									// Get new previous square
 									previousSquare = previousSquare->getPreviousSquare();
+								}
+
+								// Check winner
+								if (redCheckers == 0)
+								{
+									winner = Winner::BLACK;
+									stop = true;
+								}
+								else if (blackCheckers == 0)
+								{
+									winner = Winner::RED;
+									stop = true;
 								}
 
 								// Remove all flags and pointers to previous squares
