@@ -105,21 +105,6 @@ bool Square::isMouseInside()
 	}
 }
 
-bool Square::isSelected(const SDL_Event* event, const CheckerType currentPlayer)
-{
-	if (event->type == SDL_MOUSEBUTTONDOWN && isMouseInside() && (getChecker() == currentPlayer || getChecker() == (CheckerType)((int)currentPlayer + 2)) && this != sSelected )
-	{
-		// Select this new square
-		sSelected = this;
-		
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
 void Square::flagChecker(Square* checker)
 {
 	mCheckerFlagged = checker;

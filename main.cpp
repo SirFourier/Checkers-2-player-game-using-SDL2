@@ -10,6 +10,7 @@ static enum class GameState
 	OUTLINE_CURRENT_PLAYER,
 	SELECTING,
 	SELECTED,
+	MOVING,
 };
 
 // Define winning player or draw
@@ -20,13 +21,13 @@ static enum class Winner
 	DRAW,
 };
 
-// Get index
+// Get index of a 1D 8 x 8 grid
 static inline int getIndex(const int row, const int col)
 {
 	return 8 * row + col;
 }
 
-// Check out of bounds
+// Check out of bounds of 8 x 8 grid
 static inline bool isOutOfBounds(const int row, const int col)
 {
 	if (row < 0 || col < 0 || row > 7 || col > 7) return true;
@@ -61,6 +62,14 @@ static SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* filePath)
 	}
 
 	return texture;
+}
+
+// Return prime checker
+static CheckerType primeChecker(CheckerType checker)
+{
+	if (checker == CheckerType::RED || checker == CheckerType::KING_RED) return CheckerType::RED;
+	else if (checker == CheckerType::BLACK || checker == CheckerType::KING_BLACK) return CheckerType::BLACK;
+	else return checker;
 }
 
 // Return the opposite prime checker
@@ -105,9 +114,11 @@ static void checkDirection(Square grid[], const Direction& direction, const Chec
 			if (!isOutOfBounds(nextRow2, nextCol2))
 			{
 				Square* nextSquareAtDirection = &grid[getIndex(nextRow2, nextCol2)];
-				// If the next square at direction is empty
-				if (nextSquareAtDirection->getChecker() == CheckerType::NONE)
+				// If the next square at direction is empty and not highlighted as next possible position
+				if (nextSquareAtDirection->getChecker() == CheckerType::NONE && nextSquareAtDirection->getHighlight() != HighlightType::NEXT_POSSIBLE_POSITION)
 				{
+					std::cout << nextRow2 << ", " << nextCol2 << std::endl;
+
 					// Set hightlight to next possible position
 					nextSquareAtDirection->setHighlightTo(HighlightType::NEXT_POSSIBLE_POSITION);
 
@@ -140,6 +151,7 @@ static void checkDirection(Square grid[], const Direction& direction, const Chec
 						for (int i = 0; i < 4; ++i) checkDirection(grid, directions[i], checker, nextRow2, nextCol2, true);
 					}
 				}
+			
 				// else if next direction at square is the starting position (king checkers can come back to original position)
 			}
 		}
@@ -181,7 +193,7 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	// Set checker outline texture
+	// Set checker outline texture and remove white background
 	Checker::sOutline = loadTexture(renderer, "Resources/Outline.bmp");
 
 	// Load checker textures and remove white background
@@ -265,6 +277,7 @@ int main(int argc, char* argv[])
 		squareStartY += squareHeight + borderThickness;
 	}
 
+
 	// Game loop variables
 	bool stop = false;
 	SDL_Event event;
@@ -291,17 +304,8 @@ int main(int argc, char* argv[])
 			// Handle mouse events
 			for (int i = 0; i < totalSquares; ++i)
 			{
-				// Selecting state or already selected
-				if (gameState == GameState::SELECTING || gameState == GameState::SELECTED)
-				{
-					// Handle selecting checker
-					if (checkerboard[i].isSelected(&event, currentPlayer))
-					{
-						gameState = GameState::SELECTED;
-					}
-				}
 				// Selected state
-				if (gameState == GameState::SELECTED)
+				if (gameState == GameState::MOVING)
 				{
 					if (event.type == SDL_MOUSEBUTTONDOWN)
 					{
@@ -393,6 +397,25 @@ int main(int argc, char* argv[])
 						}
 					}
 				}
+				// Selecting state or already moving
+				if (gameState == GameState::SELECTING || gameState == GameState::MOVING)
+				{
+					if (event.type == SDL_MOUSEBUTTONDOWN)
+					{
+						// If checker is player or its king varient
+						if ((checkerboard[i].getChecker() == currentPlayer || checkerboard[i].getChecker() == (CheckerType)((int)currentPlayer + 2)))
+						{
+							if (checkerboard[i].isMouseInside())
+							{
+								if (Square::sSelected != &checkerboard[i])
+								{
+									Square::sSelected = &checkerboard[i];
+									gameState = GameState::SELECTED;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -402,7 +425,7 @@ int main(int argc, char* argv[])
 			// Add outline to the current players' checkers
 			for (int i = 0; i < totalSquares; ++i)
 			{
-				if (checkerboard[i].getChecker() == currentPlayer)
+				if (primeChecker(checkerboard[i].getChecker()) == currentPlayer)
 				{
 					checkerboard[i].setShowOutlineTo(true);
 				}
@@ -442,7 +465,7 @@ int main(int argc, char* argv[])
 			// Set possible directions
 			Direction directions[4] = { northWest, northEast, southWest, southEast };
 
-			// If Red checker
+			// If red checker
 			if (checker == CheckerType::RED)
 			{
 				// Check north west and north east
@@ -460,6 +483,9 @@ int main(int argc, char* argv[])
 				// Check all directions
 				for (int i = 0; i < 4; ++i) checkDirection(checkerboard, directions[i], checker, row, col, false);
 			}
+
+			// Set game state to moving
+			gameState = GameState::MOVING;
 
 			// Set render flag
 			render = true;

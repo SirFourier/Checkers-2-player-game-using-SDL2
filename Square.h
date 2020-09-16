@@ -68,9 +68,6 @@ public:
 	// Check if mouse is inside Square
 	bool isMouseInside();
 
-	// Handle checker selection
-	bool isSelected(const SDL_Event* event, const CheckerType currentPlayer);
-
 	// Flag and get checker for possible removal
 	void flagChecker(Square* checker);
 	Square* getCheckerFlagged();
