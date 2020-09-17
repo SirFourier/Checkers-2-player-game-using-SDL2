@@ -304,7 +304,7 @@ int main(int argc, char* argv[])
 			// Handle mouse events
 			for (int i = 0; i < totalSquares; ++i)
 			{
-				// Selected state
+				// Moving state
 				if (gameState == GameState::MOVING)
 				{
 					if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -515,6 +515,11 @@ int main(int argc, char* argv[])
 		SDL_Delay(10);
 
 	}
+
+	// Display winner to console
+	if (winner == Winner::RED) std::cout << "The winner is RED!" << std::endl;
+	else if (winner == Winner::BLACK) std::cout << "The winner is BLACK!" << std::endl;
+	else std::cout << "It's a DRAW!" << std::endl;
 
 	// Free outline texture
 	SDL_DestroyTexture(Checker::sOutline);
