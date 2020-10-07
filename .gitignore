@@ -13,6 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+#intermediate files
+intermediates/
+
 # Build results
 x64/
 [Aa][Rr][Mm]/
