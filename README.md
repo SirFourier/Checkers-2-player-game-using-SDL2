@@ -4,7 +4,7 @@ A 2 player game of Checkers/Draughts made in C++ using SDL2
 
 ## How to run
 - Download the repository
-- The executable can be found in the bin folder and then in either Debug or Release
+- The executable can be found by going to the bin folder and then in either the Debug or Release folders
 - Open "Checkers.exe"
 
 ## Microsoft Visual Studio
