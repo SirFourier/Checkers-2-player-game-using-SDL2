@@ -13,6 +13,9 @@ This project was compiled using Microsoft Visual Studio IDE in x86 mode. It can 
 ## SDL2
 This project uses SDL2 as a dependency which is why the "SDL2.dll" file is located in both the main directory and the bin/executable directories.
 
+## Source files
+All the .cpp and .h files can be found in the src folder.
+
 ## Motivation
 
 ## Code structure
