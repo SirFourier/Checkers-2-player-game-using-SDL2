@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\Checker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Square.cpp">
+    <ClCompile Include="src\Highlight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Checker.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Highlight.cpp">
+    <ClCompile Include="src\Square.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Square.h">
+    <ClInclude Include="src\Square.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Checker.h">
+    <ClInclude Include="src\Checker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Highlight.h">
+    <ClInclude Include="src\Highlight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
