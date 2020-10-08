@@ -194,14 +194,14 @@ int main(int argc, char* argv[])
 	}
 
 	// Set checker outline texture and remove white background
-	Checker::sOutline = loadTexture(renderer, "Resources/Outline.bmp");
+	Checker::sOutline = loadTexture(renderer, "assets/Outline.bmp");
 
 	// Load checker textures and remove white background
-	Checker::sTextureCache[(int)CheckerType::NONE] = loadTexture(renderer, "resources/Empty.bmp");
-	Checker::sTextureCache[(int)CheckerType::RED] = loadTexture(renderer, "resources/RedChecker.bmp");
-	Checker::sTextureCache[(int)CheckerType::BLACK] = loadTexture(renderer, "resources/BlackChecker.bmp");
-	Checker::sTextureCache[(int)CheckerType::KING_RED] = loadTexture(renderer, "resources/KingRedChecker.bmp");
-	Checker::sTextureCache[(int)CheckerType::KING_BLACK] = loadTexture(renderer, "resources/KingBlackChecker.bmp");
+	Checker::sTextureCache[(int)CheckerType::NONE] = loadTexture(renderer, "assets/Empty.bmp");
+	Checker::sTextureCache[(int)CheckerType::RED] = loadTexture(renderer, "assets/RedChecker.bmp");
+	Checker::sTextureCache[(int)CheckerType::BLACK] = loadTexture(renderer, "assets/BlackChecker.bmp");
+	Checker::sTextureCache[(int)CheckerType::KING_RED] = loadTexture(renderer, "assets/KingRedChecker.bmp");
+	Checker::sTextureCache[(int)CheckerType::KING_BLACK] = loadTexture(renderer, "assets/KingBlackChecker.bmp");
 
 	// Define highlights (RGBA)
 	Highlight::sColourCache[(int)HighlightType::NONE] = { 0, 0, 0, 0 };
