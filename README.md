@@ -1,13 +1,13 @@
 # Checkers-2-player-game-using-SDL2
 A 2 player game of Checkers/Draughts made in C++ using SDL2
-![ScreenshotOfProgram](Resources/Checkers-Game-Screenshot.png?raw=true)
+![ScreenshotOfProgram](assets/Checkers-Game-Screenshot.png?raw=true)
 
 ## Compile and run using Microsft Visual Studio (MVS)
 - Clone the repository
 - Open the solution file
 - Compile and run in x86 mode in either Debug or Release
 - If you want to run from the executable file located in the generated "bin" folder then do the following:
-  - copy resources folder into the same folder as the executable.
+  - copy assets folder into the same folder as the executable.
   - copy the "SDL2.dll" file into the same folder as the executable.
 
 ## What is Checkers/Draughts?
