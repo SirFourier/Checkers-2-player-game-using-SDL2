@@ -20,7 +20,7 @@ This project uses SDL2 as a dependency which requires a dll file called "SDL2.dl
 All the .cpp and .h files can be found in the src folder.
 
 ## Code structure
-###= OOP
+### OOP
 Each square on the board is treated as an object. The main attributes for each square are:
   - checker:
     - no checker
@@ -37,10 +37,10 @@ Each square on the board is treated as an object. The main attributes for each s
   - flag checker for possible removal (when checker is about to be jumped and only remove if the player choses to jump it)
   - previous square (keep track which square caused the flagged)
 
-###= Textures
+### Textures
 The textures were made in Microsoft paint. They are loaded into a texture cache variable which stores pointers with "SDL_Texture*" type so that they can be reused by any square. This is done by simply pointing to the desired texture in the texture cache variable.
     
-#### Game loop
+### Game loop
 The main game loop is split into different game states:
   - outline current player state
   - selecting state
@@ -48,7 +48,7 @@ The main game loop is split into different game states:
   - moving state
 This allows the code to have a more flexiable structure so that only certain parts of the game loop are called if that is the current state.
 
-#### Rendering
+### Rendering
 Each square, checker, and highlight has a render method that is called in the game loop only when something has changed. This is to avoid re-rendering of objects that have not changed when going from different game states.
 
 ## Learning outcomes
